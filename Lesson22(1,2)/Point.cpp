@@ -3,6 +3,10 @@
 #include <cstdio>
 using namespace std;
 
+Point::Point() : x(0), y(0), z(0) {}
+Point::Point(int x, int y, int z) : x(x), y(y), z(z) {}
+Point::~Point() {}
+
 // Ввід
 int Point::inputInt() {
 
@@ -26,8 +30,7 @@ int Point::inputInt() {
         break;
     }
 
-    cin.ignore(10000, '\n');
-    cout << "OK: " << x << endl;   
+    cin.ignore(10000, '\n');   
     return x;
 }
 

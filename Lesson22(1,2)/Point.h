@@ -8,6 +8,11 @@ private:
     int z;
 
 public:   
+
+    Point();
+    Point(int x, int y, int z);
+    ~Point();
+
     int inputInt();
     void print() const;
 
