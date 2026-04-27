@@ -1,10 +1,9 @@
 #include "Point.h"
+#include "PointUtils.h"
 #include <iostream>
 #include <ctime>
 
 using namespace std;
-
-int randInt();
 
 int main() {
 
@@ -15,15 +14,14 @@ int main() {
 
         cout << "\nYour current point:\n";
         p1.print();
-        cout << endl;
 
-        cout << "Select operation:\n"
+        cout << "\nSelect operation:\n"
             << "1. Set X\n"
             << "2. Set Y\n"
             << "3. Set Z\n"
-            << "4. Random point position\n"
-            << "5. Save Point\n"
-            << "6. Load save point\n"
+            << "4. Random point\n"
+            << "5. Save\n"
+            << "6. Load\n"
             << "0. Exit\n"
             << "Choice: ";
 
@@ -39,56 +37,50 @@ int main() {
 
         if (choice == 0) break;
 
-        Point p2;
+        Point temp;
+
         switch (choice) {
+
         case 1:
-            cout << "Enter X (max 1000): ";
-            p1.setX(p1.inputInt());
+            cout << "Enter X (-1000..1000): ";
+            p1.setX(Input::readInt(-1000, 1000));
             break;
 
         case 2:
-            cout << "Enter Y (max 1000): ";
-            p1.setY(p1.inputInt());
+            cout << "Enter Y (-1000..1000): ";
+            p1.setY(Input::readInt(-1000, 1000));
             break;
 
         case 3:
-            cout << "Enter Z (max 1000): ";
-            p1.setZ(p1.inputInt());
+            cout << "Enter Z (-1000..1000): ";
+            p1.setZ(Input::readInt(-1000, 1000));
             break;
 
         case 4:
-            p1.setX(randInt());
-            p1.setY(randInt());
-            p1.setZ(randInt());
+            p1.setX(Random::randInt(-1000, 1000));
+            p1.setY(Random::randInt(-1000, 1000));
+            p1.setZ(Random::randInt(-1000, 1000));
             break;
 
         case 5:
-            if (p1.saveToFile("point.txt")) {
-                cout << "\nSaved to file!\n";
-            }
-            else {
-                cout << "\nError saving file!\n";
-            }
+            if (PointFile::save(p1, "point.txt"))
+                cout << "Saved!\n";
+            else
+                cout << "Save error!\n";
             break;
 
         case 6:
-            if (p2.loadFromFile("point.txt")) {
-                cout << "\nLoaded point complete!\n";
-                p1 = p2;
-            }
-            else {
-                cout << "\nError loading file!\n";
-            }
+            if (PointFile::load(p1, "point.txt"))
+                cout << "Loaded!\n";
+            else
+                cout << "Load error!\n";
             break;
 
         default:
-            cout << "Wrong input!\n";
+            cout << "Wrong choice!\n";
             break;
-        }
+        }       
     }
-    return 0;
-}
 
-int randInt() {
-    return rand() % 1000 + 1;
+    return 0;
 }

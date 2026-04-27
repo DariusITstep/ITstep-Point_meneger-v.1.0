@@ -7,13 +7,10 @@ private:
     int y;
     int z;
 
-public:   
-
+public:
     Point();
     Point(int x, int y, int z);
-    ~Point();
 
-    int inputInt();
     void print() const;
 
     int getX() const;
@@ -23,7 +20,4 @@ public:
     void setX(int value);
     void setY(int value);
     void setZ(int value);
-
-    bool saveToFile(const char* filename) const;
-    bool loadFromFile(const char* filename);
 };
